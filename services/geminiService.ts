@@ -15,7 +15,7 @@ export const calculateSteamProperties = async (
   }
 
   if (!apiKey) {
-    throw new Error("API Key is missing. If you are hosted on Netlify, please add 'API_KEY' to your Environment Variables in Site Settings.");
+    throw new Error("API Key is missing. Please add 'API_KEY' to your Environment Variables.\nGet your key here: https://aistudio.google.com/app/apikey");
   }
 
   const ai = new GoogleGenAI({ apiKey: apiKey });

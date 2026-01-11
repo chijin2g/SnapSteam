@@ -5,7 +5,7 @@ import { InputState, CalculationResult } from './types';
 import InputForm from './components/InputForm';
 import ResultsDisplay from './components/ResultsDisplay';
 import { calculateSteamProperties } from './services/geminiService';
-import { CloudIcon, KeyIcon } from '@heroicons/react/24/solid';
+import { CloudIcon, KeyIcon, ExclamationTriangleIcon } from '@heroicons/react/24/solid';
 
 function App() {
   const [inputState, setInputState] = useState<InputState>(DEFAULT_INPUT_STATE);
@@ -89,19 +89,26 @@ function App() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
         {error && (
-          <div className="mb-6 bg-red-50 border-l-4 border-red-500 p-4 rounded-md shadow-sm">
-            <div className="flex">
+          <div className="mb-6 bg-red-50 border-l-4 border-red-500 p-4 rounded-md shadow-sm animate-fade-in">
+            <div className="flex items-start">
               <div className="flex-shrink-0">
-                <svg className="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                </svg>
+                <ExclamationTriangleIcon className="h-5 w-5 text-red-500" aria-hidden="true" />
               </div>
-              <div className="ml-3">
-                <p className="text-sm text-red-700">{error}</p>
-                {error.includes("Netlify") && (
-                   <p className="mt-2 text-xs text-red-600">
-                     Go to <strong>Site configuration &gt; Environment variables</strong> in your Netlify dashboard and add a key named <code>API_KEY</code> with your Google Gemini API key.
-                   </p>
+              <div className="ml-3 w-full">
+                <h3 className="text-sm font-medium text-red-800">Calculation Failed</h3>
+                <div className="mt-2 text-sm text-red-700">
+                  <p>{error}</p>
+                </div>
+                {(error.includes("API Key") || error.includes("Netlify")) && (
+                   <div className="mt-4 p-3 bg-red-100 rounded-md text-xs text-red-800 border border-red-200">
+                     <p className="font-bold mb-1">Troubleshooting Netlify Deployment:</p>
+                     <ol className="list-decimal list-inside space-y-1 ml-1">
+                       <li>Go to <strong>Site configuration &gt; Environment variables</strong> in Netlify.</li>
+                       <li>Ensure a key named <code>API_KEY</code> exists with your Gemini API Key value.</li>
+                       <li className="font-bold text-red-900">Crucial: Trigger a new deploy (Rebuild) after adding the variable.</li>
+                     </ol>
+                     <p className="mt-2">Environment variables are only applied during the build process.</p>
+                   </div>
                 )}
               </div>
             </div>
