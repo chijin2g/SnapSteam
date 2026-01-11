@@ -1,16 +1,41 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { DEFAULT_INPUT_STATE } from './constants';
 import { InputState, CalculationResult } from './types';
 import InputForm from './components/InputForm';
 import ResultsDisplay from './components/ResultsDisplay';
 import { calculateSteamProperties } from './services/geminiService';
-import { CloudIcon } from '@heroicons/react/24/solid';
+import { CloudIcon, KeyIcon } from '@heroicons/react/24/solid';
 
 function App() {
   const [inputState, setInputState] = useState<InputState>(DEFAULT_INPUT_STATE);
   const [result, setResult] = useState<CalculationResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showKeyWarning, setShowKeyWarning] = useState(false);
+
+  useEffect(() => {
+    // Check if running in an environment that supports dynamic key selection
+    const checkKey = async () => {
+      if (window.aistudio) {
+        const hasKey = await window.aistudio.hasSelectedApiKey();
+        setShowKeyWarning(!hasKey);
+      }
+    };
+    checkKey();
+  }, []);
+
+  const handleSelectKey = async () => {
+    if (window.aistudio) {
+      await window.aistudio.openSelectKey();
+      const hasKey = await window.aistudio.hasSelectedApiKey();
+      setShowKeyWarning(!hasKey);
+      // Clear previous error if key is now selected
+      if (hasKey && error?.includes('API Key')) {
+        setError(null);
+      }
+    }
+  };
 
   const handleCalculate = async () => {
     setIsLoading(true);
@@ -46,7 +71,15 @@ function App() {
               </div>
             </div>
             <div className="flex items-center">
-              {/* Badge removed */}
+               {showKeyWarning && (
+                 <button
+                   onClick={handleSelectKey}
+                   className="flex items-center gap-1.5 px-3 py-1.5 bg-yellow-50 text-yellow-700 hover:bg-yellow-100 rounded-md text-xs font-semibold border border-yellow-200 transition-colors"
+                 >
+                   <KeyIcon className="w-4 h-4" />
+                   Set API Key
+                 </button>
+               )}
             </div>
           </div>
         </div>
@@ -65,6 +98,11 @@ function App() {
               </div>
               <div className="ml-3">
                 <p className="text-sm text-red-700">{error}</p>
+                {error.includes("Netlify") && (
+                   <p className="mt-2 text-xs text-red-600">
+                     Go to <strong>Site configuration &gt; Environment variables</strong> in your Netlify dashboard and add a key named <code>API_KEY</code> with your Google Gemini API key.
+                   </p>
+                )}
               </div>
             </div>
           </div>

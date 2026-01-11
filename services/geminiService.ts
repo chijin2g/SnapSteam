@@ -1,14 +1,24 @@
+
 import { GoogleGenAI, Type } from "@google/genai";
 import { CalculationResult } from "../types";
 
 export const calculateSteamProperties = async (
   inputDescription: string
 ): Promise<CalculationResult> => {
-  if (!process.env.API_KEY) {
-    throw new Error("API Key is missing. Please check your environment configuration.");
+  let apiKey: string | undefined;
+  
+  try {
+    apiKey = process.env.API_KEY;
+  } catch (e) {
+    // Handle cases where process is undefined in browser environments
+    console.warn("process.env is not accessible");
   }
 
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  if (!apiKey) {
+    throw new Error("API Key is missing. If you are hosted on Netlify, please add 'API_KEY' to your Environment Variables in Site Settings.");
+  }
+
+  const ai = new GoogleGenAI({ apiKey: apiKey });
 
   const prompt = `
     Act as an expert thermodynamicist and steam table calculator based on IAPWS-97 standards.
