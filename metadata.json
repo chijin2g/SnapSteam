@@ -1,0 +1,5 @@
+{
+  "name": "SnapSteam",
+  "description": "Google Gemini-powered intelligent steam table calculator. Calculate thermodynamic properties of water based on IAPWS-97 standards using various inputs like pressure, temperature, enthalpy, and quality.",
+  "requestFramePermissions": []
+}
