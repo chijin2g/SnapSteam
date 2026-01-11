@@ -55,22 +55,22 @@ const InputForm: React.FC<InputFormProps> = ({ inputState, setInputState, onCalc
   const availableModes = FLUID_STATE_MODES[inputState.fluidState];
 
   return (
-    <div className="bg-gray-800 rounded-2xl shadow-xl p-6 md:p-8 border border-gray-700">
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 md:p-8">
       <div className="flex items-center gap-3 mb-6">
-        <div className="p-2 bg-blue-900/30 rounded-lg text-blue-400">
+        <div className="p-2 bg-blue-50 rounded-lg text-blue-600">
           <BeakerIcon className="w-6 h-6" />
         </div>
-        <h2 className="text-xl font-bold text-gray-100">State Configuration</h2>
+        <h2 className="text-xl font-bold text-gray-900">State Configuration</h2>
       </div>
 
       <div className="space-y-6">
         {/* Fluid State Selection */}
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">Fluid State</label>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">Fluid State</label>
           <select
             value={inputState.fluidState}
             onChange={handleFluidStateChange}
-            className="w-full bg-gray-700 border border-gray-600 text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 transition-colors placeholder-gray-400"
+            className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 transition-colors hover:bg-white"
           >
             {Object.values(FluidState).map((state) => (
               <option key={state} value={state}>{state}</option>
@@ -85,11 +85,11 @@ const InputForm: React.FC<InputFormProps> = ({ inputState, setInputState, onCalc
 
         {/* Input Mode Selection */}
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">Input Variables</label>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">Input Variables</label>
           <select
             value={inputState.mode}
             onChange={handleModeChange}
-            className="w-full bg-gray-700 border border-gray-600 text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 transition-colors"
+            className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 transition-colors hover:bg-white"
           >
             {availableModes.map((mode) => (
               <option key={mode} value={mode}>{mode}</option>
@@ -97,27 +97,27 @@ const InputForm: React.FC<InputFormProps> = ({ inputState, setInputState, onCalc
           </select>
         </div>
 
-        <div className="h-px bg-gray-700 my-2"></div>
+        <div className="h-px bg-gray-200 my-2"></div>
 
         {/* Value 1 */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-300 mb-2">{currentConfig.label1}</label>
+            <label className="block text-sm font-medium text-gray-600 mb-2">{currentConfig.label1}</label>
             <input
               type="number"
               value={inputState.value1}
               onChange={(e) => handleInputChange('value1', e.target.value)}
               placeholder="Enter value"
-              className="w-full bg-gray-700 border border-gray-600 text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 placeholder-gray-500"
+              className="w-full bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 placeholder-gray-400 shadow-sm"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">Unit</label>
+            <label className="block text-sm font-medium text-gray-600 mb-2">Unit</label>
             <select
               value={inputState.unit1}
               onChange={(e) => handleUnitChange('unit1', e.target.value)}
               disabled={currentConfig.units1.length === 1}
-              className="w-full bg-gray-700 border border-gray-600 text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3"
+              className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 disabled:bg-gray-100 disabled:text-gray-500"
             >
               {currentConfig.units1.map(u => <option key={u} value={u}>{u}</option>)}
             </select>
@@ -127,22 +127,22 @@ const InputForm: React.FC<InputFormProps> = ({ inputState, setInputState, onCalc
         {/* Value 2 */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-300 mb-2">{currentConfig.label2}</label>
+            <label className="block text-sm font-medium text-gray-600 mb-2">{currentConfig.label2}</label>
             <input
               type="number"
               value={inputState.value2}
               onChange={(e) => handleInputChange('value2', e.target.value)}
               placeholder="Enter value"
-              className="w-full bg-gray-700 border border-gray-600 text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 placeholder-gray-500"
+              className="w-full bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 placeholder-gray-400 shadow-sm"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">Unit</label>
+            <label className="block text-sm font-medium text-gray-600 mb-2">Unit</label>
             <select
               value={inputState.unit2}
               onChange={(e) => handleUnitChange('unit2', e.target.value)}
               disabled={currentConfig.units2.length === 1}
-              className="w-full bg-gray-700 border border-gray-600 text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3"
+              className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-3 disabled:bg-gray-100 disabled:text-gray-500"
             >
               {currentConfig.units2.map(u => <option key={u} value={u}>{u}</option>)}
             </select>
@@ -152,10 +152,10 @@ const InputForm: React.FC<InputFormProps> = ({ inputState, setInputState, onCalc
         <button
           onClick={onCalculate}
           disabled={isLoading || !inputState.value1 || !inputState.value2}
-          className={`w-full flex items-center justify-center gap-2 text-white font-medium rounded-lg text-sm px-5 py-3.5 text-center transition-all shadow-md hover:shadow-lg
+          className={`w-full flex items-center justify-center gap-2 text-white font-semibold rounded-lg text-sm px-5 py-3.5 text-center transition-all shadow-md hover:shadow-lg
             ${isLoading || !inputState.value1 || !inputState.value2 
-              ? 'bg-gray-700 cursor-not-allowed text-gray-400' 
-              : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 transform hover:-translate-y-0.5'}`}
+              ? 'bg-gray-400 cursor-not-allowed text-gray-100' 
+              : 'bg-blue-600 hover:bg-blue-700 active:bg-blue-800 transform hover:-translate-y-0.5'}`}
         >
           {isLoading ? (
             <>

@@ -24,19 +24,19 @@ const ResultRow: React.FC<{
       : value.toFixed(5);
 
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center justify-between py-3 border-b border-gray-700 last:border-0 hover:bg-gray-700/50 transition-colors px-2 rounded-md group">
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between py-3 border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors px-3 rounded-md group">
       <div className="flex flex-col">
-        <span className="text-sm font-medium text-gray-400">{label}</span>
-        {description && <span className="text-xs text-gray-500">{description}</span>}
+        <span className="text-sm font-medium text-gray-500 group-hover:text-gray-700 transition-colors">{label}</span>
+        {description && <span className="text-xs text-gray-400 group-hover:text-gray-500">{description}</span>}
       </div>
-      <div className="flex items-center gap-2 mt-1 sm:mt-0">
-        <span className="text-lg font-bold text-gray-100 font-mono tracking-tight">{formattedValue}</span>
+      <div className="flex items-center gap-3 mt-1 sm:mt-0">
+        <span className="text-lg font-bold text-gray-900 font-mono tracking-tight">{formattedValue}</span>
         
         {availableUnits && onUnitChange ? (
           <select 
             value={currentUnit}
             onChange={(e) => onUnitChange(e.target.value)}
-            className="text-xs font-medium text-blue-400 bg-gray-700 border border-gray-600 rounded px-1.5 py-0.5 focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer"
+            className="text-xs font-semibold text-blue-600 bg-white border border-gray-200 hover:border-blue-400 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer shadow-sm transition-all"
           >
             {availableUnits.map(u => (
               <option key={u} value={u}>{u}</option>
@@ -59,13 +59,13 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ result }) => {
 
   if (!result) {
     return (
-      <div className="bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-700 h-full flex flex-col items-center justify-center text-center">
-        <div className="bg-gray-700 p-6 rounded-full mb-4">
-          <CubeTransparentIcon className="w-12 h-12 text-gray-500" />
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 h-full flex flex-col items-center justify-center text-center">
+        <div className="bg-gray-50 p-6 rounded-full mb-4 border border-gray-100">
+          <CubeTransparentIcon className="w-12 h-12 text-gray-400" />
         </div>
-        <h3 className="text-lg font-medium text-gray-300 mb-2">Waiting for Input</h3>
-        <p className="text-gray-500 text-sm max-w-xs">
-          Select fluid state and input variables on the left panel, then click Calculate.
+        <h3 className="text-lg font-semibold text-gray-900 mb-2">Waiting for Input</h3>
+        <p className="text-gray-500 text-sm max-w-xs leading-relaxed">
+          Select fluid state and input variables on the left panel, then click Calculate to see results.
         </p>
       </div>
     );
@@ -88,18 +88,18 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ result }) => {
   }
 
   return (
-    <div className="bg-gray-800 rounded-2xl shadow-xl border border-gray-700 overflow-hidden flex flex-col h-full">
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-full">
         {/* Header with Phase Status */}
-        <div className="bg-gradient-to-br from-gray-900 to-black p-6 text-white relative overflow-hidden">
-            <div className="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-blue-600 rounded-full opacity-20 blur-xl"></div>
-            <div className="absolute bottom-0 left-0 -mb-4 -ml-4 w-32 h-32 bg-indigo-600 rounded-full opacity-20 blur-xl"></div>
+        <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 text-white relative overflow-hidden">
+            <div className="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-blue-500 rounded-full opacity-30 blur-xl"></div>
+            <div className="absolute bottom-0 left-0 -mb-4 -ml-4 w-32 h-32 bg-indigo-500 rounded-full opacity-30 blur-xl"></div>
             
             <div className="relative z-10">
                 <div className="flex items-center gap-2 mb-2 opacity-90">
-                    <SparklesIcon className="w-5 h-5" />
-                    <span className="text-sm font-medium tracking-wide uppercase">Calculated State</span>
+                    <SparklesIcon className="w-5 h-5 text-blue-300" />
+                    <span className="text-sm font-semibold tracking-wide uppercase text-blue-100">Calculated State</span>
                 </div>
-                <h2 className="text-3xl font-bold mb-1">{properties.phase}</h2>
+                <h2 className="text-3xl font-bold mb-1 text-white">{properties.phase}</h2>
             </div>
         </div>
 
